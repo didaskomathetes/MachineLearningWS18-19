@@ -1,8 +1,24 @@
+import csv
+
 import numpy as np
 
 
-def main():
+def main_test():
     print(X(np.array([3, 2, 4, 8]), 3))
+
+    print(getDatapoints('data/TrainingSet1D.csv'))
+
+
+def getDatapoints(filestring):
+    points = []
+    with open(filestring) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            points.insert(line_count, (float(row[0]), float(row[1])))
+            line_count += 1
+        print(f'Processed {line_count} lines of {filestring}.')
+    return points
 
 
 def X(vector, d):
