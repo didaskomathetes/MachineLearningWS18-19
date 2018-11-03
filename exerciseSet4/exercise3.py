@@ -41,3 +41,10 @@ def w_mle(y, X):
 
 def mse(X, y):
     return 1/X.shape[1] * np.dot( ( np.dot(X, w_mle(y, X) - y) ).transpose(), (np.dot(X, w_mle(y, X)) - y) )
+
+
+def w_ridge(X, y, lam):
+    Y = np.dot(X.transpose(), y)
+    W = np.diag(lam) + np.dot(X.transpose(), X)
+    Z = np.dot( np.linalg.inv(W), Y)
+    return Z
