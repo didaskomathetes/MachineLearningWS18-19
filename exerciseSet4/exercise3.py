@@ -112,7 +112,8 @@ def X(vector, d):
 
 
 def w_mle(y, X):
-    return np.dot( np.linalg.inv(np.dot(X.transpose(), X)), np.dot(X.transpose(),y) )
+    A = np.dot(X.transpose(),y)
+    return np.dot( np.linalg.inv(np.dot(X.transpose(), X)), A )
 
 
 #def mse(X, y): #using w_mle
