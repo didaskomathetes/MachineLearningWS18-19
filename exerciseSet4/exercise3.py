@@ -1,16 +1,26 @@
 import csv
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main_test(d):
-    (xtrain, ytrain) = getDatapoints('data/TrainingSet1D.csv')
-    (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
-    Xtrain = X(xtrain, d)
-    Xtest = X(xtest, d)
-    w = w_mle(ytrain, Xtrain)
-    print(f" Vector w for d={d} w:{np.array(w)} ")
-    print(f"MSE on TestSet:{mse(Xtest,ytest,w)}")
+def main_test():
+    dim = []
+    error = []
+    for d in range(19):
+        (xtrain, ytrain) = getDatapoints('data/TrainingSet1D.csv')
+        (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
+        Xtrain = X(xtrain, d)
+        Xtest = X(xtest, d)
+        w = w_mle(ytrain, Xtrain)
+        error.insert(d, mse(Xtest, ytest, w))
+        dim.insert(d, d)
+    plt.plot(dim, error)
+    plt.xlabel('Degree')
+    plt.ylabel('Error')
+    plt.show()
+    # print(f" Vector w for d={d} w:{np.array(w)} ")
+    # print(f"MSE on TestSet:{error}")
 
 
 
