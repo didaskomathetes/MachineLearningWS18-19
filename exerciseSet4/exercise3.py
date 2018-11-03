@@ -15,13 +15,13 @@ def main_test():
         w = w_mle(ytrain, Xtrain)
         error.insert(d, mse(Xtest, ytest, w))
         dim.insert(d, d)
+        print(error)
     plt.plot(dim, error)
     plt.xlabel('Degree')
     plt.ylabel('Error')
     plt.show()
     # print(f" Vector w for d={d} w:{np.array(w)} ")
     # print(f"MSE on TestSet:{error}")
-
 
 
 def getDatapoints(filestring, type=0):
@@ -75,3 +75,9 @@ def w_ridge(X, y, lam):
     W = np.diag(lam) + np.dot(X.transpose(), X)
     Z = np.dot( np.linalg.inv(W), Y)
     return Z
+
+
+def plot_function(w):
+    f = np.poly1d(w)
+    x = np.linspace(-10, 10, 100)
+    plt.plot(x, f(x))
