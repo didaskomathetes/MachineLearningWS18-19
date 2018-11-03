@@ -4,14 +4,13 @@ import numpy as np
 
 
 def main_test(d):
-    # print("Output Matrix:")
-    # print(X(np.array([3, 2, 4, 8]), 3))
+
 
     (x, y) = getDatapoints('data/TrainingSet1D.csv')
     Xm = X(x, d)
     w = w_mle(y, Xm)
-
-    print(w)
+    print(f" Vector w for d={d} w:{w} MSE:{mse(Xm,y,w)}")
+    # print(w)
 
 
 def getDatapoints(filestring, type=0):
