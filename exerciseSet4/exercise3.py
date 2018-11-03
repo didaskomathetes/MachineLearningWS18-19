@@ -4,6 +4,7 @@ import numpy as np
 
 
 def main_test():
+    print("Output Matrix:")
     print(X(np.array([3, 2, 4, 8]), 3))
 
     print(getDatapoints('data/TrainingSet1D.csv'))
