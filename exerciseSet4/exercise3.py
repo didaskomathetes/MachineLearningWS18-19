@@ -45,10 +45,26 @@ def main_test():
     plt.plot(xtrain, ytrain, 'r+')
     plt.axis([-6, 6, -20, 20])
     Xtrain = X(xtrain, 3)
-    Xtest = X(xtest, 3)
     w3 = w_mle(ytrain, Xtrain)
-    err3 = mse(Xtest, ytest, w3)
     plot_function(w3)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.grid(True)
+
+    plt.subplot(224)
+    plt.gca().set_title("Polynomials deg 1,2, 6 vs TrainDat")
+    plt.plot(xtrain, ytrain, 'r+')
+    plt.axis([-6, 6, -20, 20])
+    Xtrain = X(xtrain, 6)
+    w6 = w_mle(ytrain, Xtrain)
+    plot_function(w6)
+    Xtrain = X(xtrain, 2)
+    w2 = w_mle(ytrain, Xtrain)
+    plot_function(w2)
+    Xtrain = X(xtrain, 1)
+    w1 = w_mle(ytrain, Xtrain)
+    plot_function(w1)
+
     plt.xlabel('x')
     plt.ylabel('y')
     plt.grid(True)
@@ -58,8 +74,7 @@ def main_test():
     print(f"Best degree:{bestDegr} with error:{smallestError}")
 
 
-
-
+# loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
 def getDatapoints(filestring, type=0):
     if (type != 0):
         points = []
