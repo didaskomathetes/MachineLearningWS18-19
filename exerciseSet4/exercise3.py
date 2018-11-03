@@ -25,7 +25,7 @@ def main_test():
     plt.xlabel('Degree')
     plt.ylabel('Error')
     plt.show()
-    print(f"Best degree:{d} with error:{smallestError}")
+    print(f"Best degree:{bestDegr} with error:{smallestError}")
 
 
 
