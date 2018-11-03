@@ -33,3 +33,11 @@ def X(vector, d):
             Xi.append(vali ** j)
         X.insert(i, np.array(Xi))
     return np.array(X)
+
+
+def w_mle(y, X):
+    return np.dot( np.linalg.inv(np.dot(X.transpose(), X)), np.dot(X.transpose(),y) )
+
+
+def mse(X, y):
+    return 1/X.shape[1] * np.dot( ( np.dot(X, w_mle(y, X) - y) ).transpose(), (np.dot(X, w_mle(y, X)) - y) )
