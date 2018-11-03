@@ -57,7 +57,7 @@ def w_mle(y, X):
 #def mse(X, y): #using w_mle
 #    return 1/X.shape[1] * np.dot( ( np.dot(X, w_mle(y, X)) - y ).transpose(), (np.dot(X, w_mle(y, X)) - y) )
 def mse(X, y, w): #using any w
-    return 1/X.shape[1] * np.dot( ( np.dot(X, w) - y) ).transpose(), (np.dot(X, w) - y) )
+    return 1/X.shape[1] * np.dot( ( np.dot(X, w) - y).transpose(), (np.dot(X, w) - y) )
 
 
 def w_ridge(X, y, lam):
