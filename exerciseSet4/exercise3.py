@@ -129,7 +129,8 @@ def w_ridge(X, y, lam):
     return Z
 
 
-def plot_function(w):
+def plot_function(v):
+    w = np.flip(v)
     f = np.poly1d(w)
     x = np.linspace(-5, 5, 100)
     plt.plot(x, f(x))
