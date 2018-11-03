@@ -31,7 +31,8 @@ def main_test():
     plt.grid(True)
 
     plt.subplot(222)
-    plt.plot(xtrain, ytrain, 'ro')
+    plt.plot(xtrain, ytrain, 'r+')
+    plt.axis([-6, 6, -20, 20])
     plot_function(bestW)
     plt.xlabel('x')
     plt.ylabel('y')
@@ -99,5 +100,5 @@ def w_ridge(X, y, lam):
 
 def plot_function(w):
     f = np.poly1d(w)
-    x = np.linspace(-10, 10, 100)
+    x = np.linspace(-5, 5, 100)
     plt.plot(x, f(x))
