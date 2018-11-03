@@ -11,6 +11,7 @@ def main_test():
     (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
     bestDegr = 0
     smallestError = 500
+    bestW = []
     for d in range(20):
         Xtrain = X(xtrain, d)
         Xtest = X(xtest, d)
@@ -21,9 +22,22 @@ def main_test():
         if (errTemp < smallestError):
             smallestError = errTemp
             bestDegr = d
+            bestW = np.array(w)
+
+    plt.subplot(221)
     plt.plot(dim, error)
     plt.xlabel('Degree')
     plt.ylabel('Error')
+    plt.grid(True)
+
+    plt.subplot(222)
+    plt.plot(xtrain, ytrain, 'ro')
+    plot_function(bestW)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.grid(True)
+
+
     plt.show()
     print(f"Best degree:{bestDegr} with error:{smallestError}")
 
