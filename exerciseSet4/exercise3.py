@@ -7,21 +7,27 @@ import numpy as np
 def main_test():
     dim = []
     error = []
-    for d in range(19):
-        (xtrain, ytrain) = getDatapoints('data/TrainingSet1D.csv')
-        (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
+    (xtrain, ytrain) = getDatapoints('data/TrainingSet1D.csv')
+    (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
+    bestDegr = 0
+    smallestError = 500
+    for d in range(20):
         Xtrain = X(xtrain, d)
         Xtest = X(xtest, d)
         w = w_mle(ytrain, Xtrain)
-        error.insert(d, mse(Xtest, ytest, w))
+        errTemp = mse(Xtest, ytest, w)
+        error.insert(d, errTemp)
         dim.insert(d, d)
-        print(error)
+        if (errTemp < smallestError):
+            smallestError = errTemp
+            bestDegr = d
     plt.plot(dim, error)
     plt.xlabel('Degree')
     plt.ylabel('Error')
     plt.show()
-    # print(f" Vector w for d={d} w:{np.array(w)} ")
-    # print(f"MSE on TestSet:{error}")
+    print(f"Best degree:{bestDegr} with error:{smallestError}")
+
+
 
 
 def getDatapoints(filestring, type=0):
