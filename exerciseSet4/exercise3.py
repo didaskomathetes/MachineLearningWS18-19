@@ -10,16 +10,27 @@ def main_test():
     print(getDatapoints('data/TrainingSet1D.csv'))
 
 
-def getDatapoints(filestring):
-    points = []
+def getDatapoints(filestring, type=0):
+    if (type != 0):
+        points = []
+    else:
+        x = []
+        y = []
     with open(filestring) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
-            points.insert(line_count, (float(row[0]), float(row[1])))
+            if (type != 0):
+                points.insert(line_count, [float(row[0]), float(row[1])])
+            else:
+                x.insert(line_count, float(row[0]))
+                y.insert(line_count, float(row[1]))
             line_count += 1
+
         print(f'Processed {line_count} lines of {filestring}.')
-    return points
+        if (type != 0):
+            return np.array(points)
+    return (x, y)
 
 
 def X(vector, d):
