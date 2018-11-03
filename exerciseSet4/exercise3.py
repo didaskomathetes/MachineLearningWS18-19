@@ -30,7 +30,7 @@ def getDatapoints(filestring, type=0):
         print(f'Processed {line_count} lines of {filestring}.')
         if (type != 0):
             return np.array(points)
-    return (x, y)
+    return (np.array(x), np.array(y))
 
 
 def X(vector, d):
