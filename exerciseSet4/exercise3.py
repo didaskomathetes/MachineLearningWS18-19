@@ -150,3 +150,13 @@ def plot_function(v, g_label=None):
         plt.plot(x, f(x), label=g_label)
     else:
         plt.plot(x, f(x))
+
+
+def error(x, y):
+    err = 100
+    for d in range (20):
+        for lam in range (10):
+            current_err = w_ridge(X(x, d), y, 1/lam)
+            if (current_err < err):
+                err = current_err
+    return err
