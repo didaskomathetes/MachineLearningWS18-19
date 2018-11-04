@@ -139,7 +139,7 @@ def mse(X, y, w): #using any w
 #exercie 3.f)
 def w_ridge(X, y, lam):
     Y = np.dot(X.transpose(), y)
-    W = lam * (np.eye(X.shape[1])) + np.dot(X.transpose(), X)
+    W = (lam * np.eye(X.shape[1])) + np.dot(X.transpose(), X)
     Z = np.dot( np.linalg.inv(W), Y)
     return Z
 
@@ -157,9 +157,9 @@ def plot_function(v, g_label=None):
 def error(x, y):
     err = 100
     for d in range(20):
+        Xm = X(x, d)
         for lam in range(1, 11):
-            Xm = X(x, d)
-            current_err = mse(Xm, y, w_ridge(X, y, 1 / lam))
+            current_err = mse(Xm, y, w_ridge(Xm, y, 1 / lam))
             if (current_err < err):
                 err = current_err
                 current_d = d
