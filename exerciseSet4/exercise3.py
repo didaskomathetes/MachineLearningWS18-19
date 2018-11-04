@@ -30,7 +30,7 @@ def main_test():
             bestDegr = d
             bestW = np.array(w)
 
-    error(X(xtrain, bestDegr), ytrain, X(xtest, bestDegr), ytest, bestDegr)
+    error(xtrain, ytrain, xtest, ytest)
 
 
     plt.subplot(221)
@@ -154,13 +154,14 @@ def plot_function(v, g_label=None):
 
 
 # method for finding a good combination of d and lambda
-def error(Xtrain, ytrain, Xtest, ytest, d):
+def error(xtrain, ytrain, xtest, ytest):
     err = 100
-
-    for lam in range(1, 11):
-        w = w_ridge(Xtrain, ytrain, 1 / lam)
-        current_err = mse(Xtest, ytest, w)
-        if (current_err < err):
-            err = current_err
-            current_lam = lam
+    for d in range(20):
+        #X = X(xtrain, d)
+        for lam in range(1, 110):
+            w = w_ridge(X(xtrain, d), ytrain, 1 / lam)
+            current_err = mse(X(xtest, d), ytest, w)
+            if (current_err < err):
+                err = current_err
+                current_lam = lam
     print(f"Error in ridge regression: {err} with d = {d} and lambda = {1 / current_lam}")
