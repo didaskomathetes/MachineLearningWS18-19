@@ -84,8 +84,6 @@ def main_test():
     plt.show()
     print(f"Best degree:{bestDegr} with error:{smallestTestError}")
 
-    error(xtrain, ytrain)
-
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
 def getDatapoints(filestring, type=0):
