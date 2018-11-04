@@ -37,6 +37,7 @@ def main_test():
     plt.gca().set_title("Polynomial Degree vs MSE")
     plt.plot(dim, testError, label="Test Error")
     plt.plot(dim, trainError, label="Training Error")
+    plt.axis([0, 20, 0, 20])
     plt.xlabel('Degree')
     plt.ylabel('Error')
     plt.grid(True)
