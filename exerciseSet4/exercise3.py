@@ -2,7 +2,6 @@ import csv
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.font_manager import FontProperties
 
 
 def main_test():
@@ -29,9 +28,9 @@ def main_test():
             smallestTestError = errTemp
             bestDegr = d
             bestW = np.array(w)
+    # error(X(xtrain,bestDegr), ytest,bestDegr)
+    error(X(xtrain, bestDegr), ytrain, X(xtest, bestDegr), ytest, bestDegr)
 
-    fontP = FontProperties()
-    fontP.set_size('small')
 
     plt.subplot(221)
     plt.gca().set_title("Polynomial Degree vs MSE")
@@ -75,7 +74,7 @@ def main_test():
     plot_function(w2, "degr=2")
     Xtrain = X(xtrain, 1)
     w1 = w_mle(ytrain, Xtrain)
-    plot_function(w1, "degr=2")
+    plot_function(w1, "degr=1")
     plt.xlabel('x')
     plt.ylabel('y')
     plt.grid(True)
@@ -154,14 +153,13 @@ def plot_function(v, g_label=None):
         plt.plot(x, f(x))
 
 
-def error(x, y):
+def error(Xtrain, ytrain, Xtest, ytest, d):
     err = 100
-    for d in range(20):
-        Xm = X(x, d)
-        for lam in range(1, 11):
-            current_err = mse(Xm, y, w_ridge(Xm, y, 1 / lam))
-            if (current_err < err):
-                err = current_err
-                current_d = d
-                current_lam = lam
-    print(f"Error {err} with d = {current_d} and lambda = {current_lam}")
+
+    for lam in range(1, 11):
+        w = w_ridge(Xtrain, ytrain, 1 / lam)
+        current_err = mse(Xtest, ytest, w)
+        if (current_err < err):
+            err = current_err
+            current_lam = lam
+    print(f"Error {err} with d = {d} and lambda = {current_lam}")
