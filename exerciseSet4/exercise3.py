@@ -158,7 +158,8 @@ def error(x, y):
     err = 100
     for d in range(20):
         for lam in range(1, 11):
-            current_err = w_ridge(X(x, d), y, 1/lam)
+            Xm = X(x, d)
+            current_err = mse(Xm, y, w_ridge(X, y, 1 / lam))
             if (current_err < err):
                 err = current_err
                 current_d = d
