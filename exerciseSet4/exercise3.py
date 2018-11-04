@@ -26,11 +26,14 @@ def main_test():
         print(f"For degree {d} polynomial (MLE) test error is {errTemp}")
 
         # if-block for deciding the smallest error degree and corresponding w
+        # Solution for 3.d)
         if (errTemp < smallestTestError):
             smallestTestError = errTemp
             bestDegr = d
             bestW = np.array(w)
 
+    # plot if 3.d)
+    # error decreases with higher d, but spikes unexpectatly between d=12 and d=14
     #plot dim of polynomials against training and test errors
     plt.subplot(221)
     plt.gca().set_title("Polynomial Degree (MLE) vs MSE")
