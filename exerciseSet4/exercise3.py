@@ -2,6 +2,7 @@ import csv
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.font_manager import FontProperties
 
 
 def main_test():
@@ -21,10 +22,16 @@ def main_test():
         trainError.insert(d, mse(Xtrain, ytrain, w))
         testError.insert(d, errTemp)
         dim.insert(d, d)
+        if (d == 3 or d == 2):
+            print(f"For degree {d} error is {errTemp}")
+        # if-block for deciding the smallest error degree and corresponding w
         if (errTemp < smallestTestError):
             smallestTestError = errTemp
             bestDegr = d
             bestW = np.array(w)
+
+    fontP = FontProperties()
+    fontP.set_size('small')
 
     plt.subplot(221)
     plt.gca().set_title("Polynomial Degree vs MSE")
@@ -46,32 +53,33 @@ def main_test():
 
     plt.subplot(223)
     plt.gca().set_title(f"Polynomial with Degree 3 and Training Data ")
-    plt.plot(xtrain, ytrain, 'r+')
+    plt.plot(xtrain, ytrain, 'r+', label="Training Data")
     plt.axis([-6, 6, -10, 20])
     Xtrain = X(xtrain, 3)
     w3 = w_mle(ytrain, Xtrain)
-    plot_function(w3)
+    plot_function(w3, "degr=3")
     plt.xlabel('x')
     plt.ylabel('y')
     plt.grid(True)
+    plt.legend()
 
     plt.subplot(224)
-    plt.gca().set_title("Deg 1,2, 6")
-    plt.plot(xtrain, ytrain, 'r+')
+    plt.gca().set_title("Deg 1,2,6")
+    plt.plot(xtrain, ytrain, 'r+', label="Training Data")
     plt.axis([-6, 6, -10, 20])
     Xtrain = X(xtrain, 6)
     w6 = w_mle(ytrain, Xtrain)
-    plot_function(w6)
+    plot_function(w6, "degr=6")
     Xtrain = X(xtrain, 2)
     w2 = w_mle(ytrain, Xtrain)
-    plot_function(w2)
+    plot_function(w2, "degr=2")
     Xtrain = X(xtrain, 1)
     w1 = w_mle(ytrain, Xtrain)
-    plot_function(w1)
-
+    plot_function(w1, "degr=2")
     plt.xlabel('x')
     plt.ylabel('y')
     plt.grid(True)
+    plt.legend()
 
 
     plt.show()
@@ -100,6 +108,7 @@ def getDatapoints(filestring, type=0):
     return (np.array(x), np.array(y))
 
 
+# returns the matrix X (exercise 3.a))
 def X(vector, d):
     vlen = vector.size
     X = []
@@ -113,6 +122,7 @@ def X(vector, d):
     return np.array(X)
 
 
+# exercise 3.b)
 def w_mle(y, X):
     A = np.dot(X.transpose(),y)
     return np.dot( np.linalg.inv(np.dot(X.transpose(), X)), A )
@@ -124,6 +134,7 @@ def mse(X, y, w): #using any w
     return 1/X.shape[1] * np.dot( ( np.dot(X, w) - y).transpose(), (np.dot(X, w) - y) )
 
 
+#exercie 3.f)
 def w_ridge(X, y, lam):
     Y = np.dot(X.transpose(), y)
     W = np.diag(lam) + np.dot(X.transpose(), X)
@@ -131,8 +142,11 @@ def w_ridge(X, y, lam):
     return Z
 
 
-def plot_function(v):
+def plot_function(v, g_label=None):
     w = np.flip(v)
     f = np.poly1d(w)
     x = np.linspace(-5, 5, 100)
-    plt.plot(x, f(x))
+    if (g_label != None):
+        plt.plot(x, f(x), label=g_label)
+    else:
+        plt.plot(x, f(x))
