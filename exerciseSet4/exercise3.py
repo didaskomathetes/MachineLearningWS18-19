@@ -6,35 +6,39 @@ import numpy as np
 
 def main_test():
     dim = []
-    error = []
+    testError = []
+    trainError = []
     (xtrain, ytrain) = getDatapoints('data/TrainingSet1D.csv')
     (xtest, ytest) = getDatapoints('data/TestSet1D.csv')
     bestDegr = 0
-    smallestError = 500
+    smallestTestError = 500
     bestW = []
     for d in range(20):
         Xtrain = X(xtrain, d)
         Xtest = X(xtest, d)
         w = w_mle(ytrain, Xtrain)
         errTemp = mse(Xtest, ytest, w)
-        error.insert(d, errTemp)
+        trainError.insert(d, mse(Xtrain, ytrain, w))
+        testError.insert(d, errTemp)
         dim.insert(d, d)
-        if (errTemp < smallestError):
-            smallestError = errTemp
+        if (errTemp < smallestTestError):
+            smallestTestError = errTemp
             bestDegr = d
             bestW = np.array(w)
 
     plt.subplot(221)
     plt.gca().set_title("Polynomial Degree vs MSE")
-    plt.plot(dim, error)
+    plt.plot(dim, testError, label="Test Error")
+    plt.plot(dim, trainError, label="Training Error")
     plt.xlabel('Degree')
     plt.ylabel('Error')
     plt.grid(True)
+    plt.legend()
 
     plt.subplot(222)
-    plt.gca().set_title(f"Smallest Err. Degr. Polyn. ({bestDegr}) and Train.Data")
+    plt.gca().set_title("Least Err. Polyn. and Train.Data")
     plt.plot(xtrain, ytrain, 'r+')
-    plt.axis([-6, 6, -20, 20])
+    plt.axis([-6, 6, -10, 20])
     plot_function(bestW)
     plt.xlabel('x')
     plt.ylabel('y')
@@ -43,7 +47,7 @@ def main_test():
     plt.subplot(223)
     plt.gca().set_title(f"Polynomial with Degree 3 and Training Data ")
     plt.plot(xtrain, ytrain, 'r+')
-    plt.axis([-6, 6, -20, 20])
+    plt.axis([-6, 6, -10, 20])
     Xtrain = X(xtrain, 3)
     w3 = w_mle(ytrain, Xtrain)
     plot_function(w3)
@@ -52,9 +56,9 @@ def main_test():
     plt.grid(True)
 
     plt.subplot(224)
-    plt.gca().set_title("Polynomials deg 1,2, 6 vs TrainDat")
+    plt.gca().set_title("Deg 1,2, 6")
     plt.plot(xtrain, ytrain, 'r+')
-    plt.axis([-6, 6, -20, 20])
+    plt.axis([-6, 6, -10, 20])
     Xtrain = X(xtrain, 6)
     w6 = w_mle(ytrain, Xtrain)
     plot_function(w6)
@@ -71,16 +75,14 @@ def main_test():
 
 
     plt.show()
-    print(f"Best degree:{bestDegr} with error:{smallestError}")
+    print(f"Best degree:{bestDegr} with error:{smallestTestError}")
 
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
 def getDatapoints(filestring, type=0):
-    if (type != 0):
-        points = []
-    else:
-        x = []
-        y = []
+    points = []
+    x = []
+    y = []
     with open(filestring) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
