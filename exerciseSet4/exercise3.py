@@ -85,6 +85,8 @@ def main_test():
     plt.show()
     print(f"Best degree:{bestDegr} with error:{smallestTestError}")
 
+    error(xtrain, ytrain)
+
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
 def getDatapoints(filestring, type=0):
@@ -154,9 +156,11 @@ def plot_function(v, g_label=None):
 
 def error(x, y):
     err = 100
-    for d in range (20):
-        for lam in range (10):
+    for d in range(20):
+        for lam in range(1, 11):
             current_err = w_ridge(X(x, d), y, 1/lam)
             if (current_err < err):
                 err = current_err
-    return err
+                current_d = d
+                current_lam = lam
+    print(f"Error {err} with d = {current_d} and lambda = {current_lam}")
