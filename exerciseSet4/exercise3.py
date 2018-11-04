@@ -23,12 +23,13 @@ def main_test():
         dim.insert(d, d)
         if (d == 3 or d == 2):
             print(f"For degree {d} polynomial error is {errTemp}")
+
         # if-block for deciding the smallest error degree and corresponding w
         if (errTemp < smallestTestError):
             smallestTestError = errTemp
             bestDegr = d
             bestW = np.array(w)
-    # error(X(xtrain,bestDegr), ytest,bestDegr)
+
     error(X(xtrain, bestDegr), ytrain, X(xtest, bestDegr), ytest, bestDegr)
 
 
@@ -151,6 +152,7 @@ def plot_function(v, g_label=None):
         plt.plot(x, f(x))
 
 
+# method for finding a good combination of d and lambda
 def error(Xtrain, ytrain, Xtest, ytest, d):
     err = 100
 
