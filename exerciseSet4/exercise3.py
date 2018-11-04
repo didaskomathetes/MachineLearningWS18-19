@@ -22,7 +22,7 @@ def main_test():
         testError.insert(d, errTemp)
         dim.insert(d, d)
         if (d == 3 or d == 2):
-            print(f"For degree {d} error is {errTemp}")
+            print(f"For degree {d} polynomial error is {errTemp}")
         # if-block for deciding the smallest error degree and corresponding w
         if (errTemp < smallestTestError):
             smallestTestError = errTemp
@@ -82,7 +82,7 @@ def main_test():
 
 
     plt.show()
-    print(f"Best degree:{bestDegr} with error:{smallestTestError}")
+    print(f"Best polynomial degree:{bestDegr} with test error:{smallestTestError}")
 
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
@@ -160,4 +160,4 @@ def error(Xtrain, ytrain, Xtest, ytest, d):
         if (current_err < err):
             err = current_err
             current_lam = lam
-    print(f"Error {err} with d = {d} and lambda = {current_lam}")
+    print(f"Error in ridge regression: {err} with d = {d} and lambda = {current_lam}")
