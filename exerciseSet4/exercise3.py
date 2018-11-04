@@ -162,4 +162,4 @@ def error(Xtrain, ytrain, Xtest, ytest, d):
         if (current_err < err):
             err = current_err
             current_lam = lam
-    print(f"Error in ridge regression: {err} with d = {d} and lambda = {current_lam}")
+    print(f"Error in ridge regression: {err} with d = {d} and lambda = {1 / current_lam}")
