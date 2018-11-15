@@ -1,10 +1,13 @@
-import csv
+import os
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+from utils.data import getDatapoints
+
 
 def main_test():
+    os.chdir("exerciseSet4")
     dim = []
     testError = []
     trainError = []
@@ -122,28 +125,6 @@ def plot_function(v, g_label=None):
         plt.plot(x, f(x), label=g_label)
     else:
         plt.plot(x, f(x))
-
-
-# loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
-def getDatapoints(filestring, type=0):
-    points = []
-    x = []
-    y = []
-    with open(filestring) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            if (type != 0):
-                points.insert(line_count, [float(row[0]), float(row[1])])
-            else:
-                x.insert(line_count, float(row[0]))
-                y.insert(line_count, float(row[1]))
-            line_count += 1
-
-        print(f'Processed {line_count} lines of {filestring}.')
-        if (type != 0):
-            return np.array(points)
-    return (np.array(x), np.array(y))
 
 
 def printAdditionalPlots(xtrain, ytrain):
