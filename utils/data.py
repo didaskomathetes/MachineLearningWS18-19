@@ -5,11 +5,12 @@ import numpy as np
 
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
-def getDatapoints(filestring, type=0):
+def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000):
     points = []
     x = []
     y = []
     path = os.path.abspath(filestring)
+    addedLabels = 0
     with open(path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
@@ -17,24 +18,29 @@ def getDatapoints(filestring, type=0):
             if (type != 0):
                 points.insert(line_count, [float(row[0]), float(row[1])])
             else:
-                x.insert(line_count, float(row[0]))
-                y.insert(line_count, float(row[1]))
+                if (line_count >= startIndex and line_count <= endIndex):
+                    x.insert(line_count, float(row[0]))
+                    y.insert(line_count, float(row[1]))
+                    addedLabels += 1
             line_count += 1
 
-        print(f'Processed {line_count} lines of {filestring}.')
+        print(f'Processed {line_count} lines of {filestring}.  Extracted {addedLabels} lines')
         if (type != 0):
             return np.array(points)
     return (np.array(x), np.array(y))
 
 
-def getLabels(filestring):
+def getLabels(filestring, startIndex=0, endIndex=1000):
     path = os.path.abspath(filestring)
     labels = []
+    addedLabels = 0
     with open(path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
-            labels.append(row[0])
+            if (line_count >= startIndex and line_count <= endIndex):
+                labels.append(row[0])
+                addedLabels += 1
             line_count += 1
-    print(f'Processed {line_count} lines of {filestring}.')
+    print(f'Processed {line_count} lines of {filestring}. Extracted {addedLabels} lines')
     return np.array(labels)
