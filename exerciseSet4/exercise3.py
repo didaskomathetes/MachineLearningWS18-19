@@ -1,5 +1,3 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -7,7 +5,6 @@ from utils.data import getDatapoints
 
 
 def main_test():
-    os.chdir("exerciseSet4")
     dim = []
     testError = []
     trainError = []
