@@ -15,8 +15,8 @@ def fit(X, y):
 
 def main():
     y = getLabels('data/svm_labels.csv')
-    X = getDatapoints('data/svm_data.csv')
-
+    X = getDatapoints('data/svm_data.csv', array=1)
+    print(X)
     result = fit(X, y)
 
     plotDataAndDecisionBoundary(sampleBoundaryFunction)

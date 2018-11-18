@@ -5,7 +5,7 @@ import numpy as np
 
 
 # loads datapoints from a file into an tuple (x,y) where x and y are arrays/vectors
-def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000):
+def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000, array=0):
     points = []
     x = []
     y = []
@@ -27,6 +27,11 @@ def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000):
         print(f'Processed {line_count} lines of {filestring}.  Extracted {addedLabels} datapoints')
         if (type != 0):
             return np.array(points)
+        if (array == 1):
+            X = []
+            X.insert(0, x)
+            X.insert(1, y)
+            return np.array(X)
     return (np.array(x), np.array(y))
 
 
