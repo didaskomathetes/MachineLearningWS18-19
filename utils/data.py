@@ -31,7 +31,7 @@ def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000, array=0):
             X = []
             X.insert(0, x)
             X.insert(1, y)
-            return np.array(X)
+            return np.array(X).transpose()
     return (np.array(x), np.array(y))
 
 
