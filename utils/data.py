@@ -24,7 +24,7 @@ def getDatapoints(filestring, type=0, startIndex=0, endIndex=1000):
                     addedLabels += 1
             line_count += 1
 
-        print(f'Processed {line_count} lines of {filestring}.  Extracted {addedLabels} labels')
+        print(f'Processed {line_count} lines of {filestring}.  Extracted {addedLabels} datapoints')
         if (type != 0):
             return np.array(points)
     return (np.array(x), np.array(y))
@@ -42,5 +42,5 @@ def getLabels(filestring, startIndex=0, endIndex=1000):
                 labels.append(row[0])
                 addedLabels += 1
             line_count += 1
-    print(f'Processed {line_count} lines of {filestring}. Extracted {addedLabels} data points')
+    print(f'Processed {line_count} lines of {filestring}. Extracted {addedLabels} data labels')
     return np.array(labels)
