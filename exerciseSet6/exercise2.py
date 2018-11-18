@@ -9,15 +9,19 @@ from utils.data import getLabels
 def fit(X, y):
     result = 0.5
     Q = np.dot(np.dot(np.diag(y), X), np.dot(X.transpose(), np.diag(y)))
-    cvxopt.solvers.qp()
+    c = (-1)*np.ones(X.shape[0])
+    print(c)
+    A_eq = y.transpose()
+    b_eq = 0
+    A = []
+    b=[]
+    #cvxopt.solvers.qp()
     return result
 
 
 def main():
     y = getLabels('data/svm_labels.csv')
     X = getDatapoints('data/svm_data.csv', array=1)
-    print(X.shape)
-    print(X)
     result = fit(X, y)
 
     plotDataAndDecisionBoundary(sampleBoundaryFunction)
