@@ -44,7 +44,7 @@ def getLabels(filestring, startIndex=0, endIndex=1000):
         line_count = 0
         for row in csv_reader:
             if (line_count >= startIndex and line_count <= endIndex):
-                labels.append(row[0])
+                labels.append(float(row[0]))
                 addedLabels += 1
             line_count += 1
     print(f'Processed {line_count} lines of {filestring}. Extracted {addedLabels} data labels')
