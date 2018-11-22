@@ -59,6 +59,11 @@ def getIrisDataAnLabels(filestring):
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
+            print(row[0])
+            print(row[1])
+            print(row[2])
+            print(row[3])
+            print(row[4])
             X.append(np.array([float(row[0]), float(row[1]), float(row[2]), float(row[3])]))
             y.append(row[4])
             line_count += 1
