@@ -49,3 +49,17 @@ def getLabels(filestring, startIndex=0, endIndex=1000):
             line_count += 1
     print(f'Processed {line_count} lines of {filestring}. Extracted {addedLabels} data labels')
     return np.array(labels)
+
+
+def getIrisDataAnLabels(filestring):
+    X = []
+    y = []
+    path = os.path.abspath(filestring)
+    with open(path) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            X.append(np.array([float(row[0]), float(row[1]), float(row[2]), float(row[3])]))
+            y.append(row[4])
+            line_count += 1
+        return (np.array(X).transpose(), y)
