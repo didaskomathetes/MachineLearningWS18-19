@@ -31,7 +31,6 @@ def main():
     plot.scatter(X[0], X[1], c=colors)
     plot.xlabel("sepal length in cm")
     plot.ylabel("petal width in cm")
-    plot.legend()
     plot.show()
 
 
