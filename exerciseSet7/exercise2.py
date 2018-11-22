@@ -17,6 +17,9 @@ def main():
     print("Eigenvectors of Covariance Matrix of Iris Data:")
     print(b)
 
+    V = np.array([X[0], X[3]])
+    print(V)
+
 
 def get_eig(n):
     matrix = - 1/n * np.ones((n, n)) + np.eye(n)
