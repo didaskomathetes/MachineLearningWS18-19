@@ -1,4 +1,3 @@
-import cvxopt
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -9,13 +8,13 @@ from utils.data import getLabels
 def fit(X, y):
     result = 0.5
     Q = np.dot(np.dot(np.diag(y), X), np.dot(X.transpose(), np.diag(y)))
-    c = (-1)*np.ones(X.shape[0])
+    c = (-1) * np.ones(X.shape[0])
     print(c)
     A_eq = y.transpose()
     b_eq = 0
     A = []
-    b=[]
-    #cvxopt.solvers.qp()
+    b = []
+    # cvxopt.solvers.qp()
     return result
 
 

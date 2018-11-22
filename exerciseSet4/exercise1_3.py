@@ -34,7 +34,7 @@ def main_test():
 
     # plot if 3.d)
     # error decreases with higher d, but spikes unexpectatly between d=12 and d=14
-    #plot dim of polynomials against training and test errors
+    # plot dim of polynomials against training and test errors
     plt.subplot(221)
     plt.gca().set_title("Polynomial Degree (MLE) vs MSE")
     plt.plot(dim, testError, label="Test Error")
@@ -45,7 +45,7 @@ def main_test():
     plt.grid(True)
     plt.legend()
 
-    #plot of least error polynomial and training data
+    # plot of least error polynomial and training data
     plt.subplot(222)
     plt.gca().set_title("MLE Least Error Polynomial")
     plt.plot(xtrain, ytrain, 'r+', label="Training Data")
@@ -61,7 +61,7 @@ def main_test():
 
     plt.show()
 
-    #solution to 3.b)
+    # solution to 3.b)
     print(f"Best polynomial degree:{bestDegr} with test error:{smallestTestError}")
 
     # solution to 3.g), ridge regression beats the best solution of d)
@@ -84,19 +84,20 @@ def X(vector, d):
 
 # exercise 3.b)
 def w_mle(y, X):
-    A = np.dot(X.transpose(),y)
+    A = np.dot(X.transpose(), y)
     return np.dot(np.linalg.inv(np.dot(X.transpose(), X)), A)
 
 
 # exercise 3.c)
-def mse(X, y, w): #using any w
-    return 1/X.shape[1] * np.dot( ( np.dot(X, w) - y).transpose(), (np.dot(X, w) - y) )
+def mse(X, y, w):  # using any w
+    return 1 / X.shape[1] * np.dot((np.dot(X, w) - y).transpose(), (np.dot(X, w) - y))
 
-#exercie 3.f)
+
+# exercie 3.f)
 def w_ridge(X, y, lam):
     Y = np.dot(X.transpose(), y)
     W = (lam * np.eye(X.shape[1])) + np.dot(X.transpose(), X)
-    Z = np.dot( np.linalg.inv(W), Y)
+    Z = np.dot(np.linalg.inv(W), Y)
     return Z
 
 
@@ -104,7 +105,7 @@ def w_ridge(X, y, lam):
 def error(xtrain, ytrain, xtest, ytest):
     err = 100
     for d in range(20):
-        #X = X(xtrain, d)
+        # X = X(xtrain, d)
         for lam in range(1, 110):
             w = w_ridge(X(xtrain, d), ytrain, 1 / lam)
             current_err = mse(X(xtest, d), ytest, w)
