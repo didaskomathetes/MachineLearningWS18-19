@@ -8,7 +8,7 @@ def main():
 
 
 def get_eig(n):
-    matrix = -1 / n * np.ones((n, n)) + np.eye(n)
+    matrix = - 1/n * np.ones((n, n)) + np.eye(n)
 
     return np.linalg.eig(matrix)
 

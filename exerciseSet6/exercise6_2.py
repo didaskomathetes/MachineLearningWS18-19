@@ -1,3 +1,4 @@
+import cvxopt
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,15 +14,15 @@ def fit(X, y):
     A_eq = y.transpose()
     b_eq = 0
     A = []
-    b = []
-    # cvxopt.solvers.qp()
+    b=[]
+    result = cvxopt.solvers.qp(Q, c, A_eq, b_eq)
     return result
-
 
 def main():
     y = getLabels('data/svm_labels.csv')
     X = getDatapoints('data/svm_data.csv', array=1)
     result = fit(X, y)
+    print(result)
 
     plotDataAndDecisionBoundary(sampleBoundaryFunction)
 
