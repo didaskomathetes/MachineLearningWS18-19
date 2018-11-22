@@ -7,8 +7,7 @@ def main():
     for n in range(1, 10):
         print(get_eig(n)[0])
     X, y = getIrisDataAnLabels("data/iris.data")
-
-    C = np.dot(X.transpose(), X)
+    C = np.dot(X, X.transpose())
     print("Covariance Matrix of Iris Data:")
     print(C)
 
