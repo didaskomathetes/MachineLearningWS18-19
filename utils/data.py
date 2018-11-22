@@ -62,4 +62,4 @@ def getIrisDataAnLabels(filestring):
             X.append(np.array([float(row[0]), float(row[1]), float(row[2]), float(row[3])]))
             y.append(row[4])
             line_count += 1
-        return (np.array(X).transpose(), y)
+        return (np.array(X), y)
