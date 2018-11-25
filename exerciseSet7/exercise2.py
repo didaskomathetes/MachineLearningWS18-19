@@ -5,6 +5,7 @@ from utils.data import getIrisDataAnLabels
 
 
 def main():
+    # exercise 1d): eigenvalues lam of H_n are: lam_1=0, all other lam_m=1
     print("Eigenvalues of H_n for n=1...10")
     for n in range(1, 10):
         print(get_eig(n)[0])
@@ -21,12 +22,12 @@ def main():
     print(f"\nDatapoints by PCs, column 1 (EV:{a[0]}) and 4 (EV:{a[3]}): \n{V.transpose()}\n")
 
     colors = []
-    for kuchen in y:
-        if kuchen == "Iris-setosa":
+    for label in y:
+        if label == "Iris-setosa":
             colors.append("red")
-        if kuchen == "Iris-versicolor":
+        if label == "Iris-versicolor":
             colors.append("green")
-        if kuchen == "Iris-virginica":
+        if label == "Iris-virginica":
             colors.append("blue")
     plot.scatter(X[0], X[1], c=colors)
     plot.xlabel("sepal length in cm")
