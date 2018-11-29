@@ -14,7 +14,7 @@ def main():
 
     fig = plt.figure()
     V  = np.array([X[0], X[1]])
-    print(f"\nDatapoints by PCs, column 1 (EV:{a[0]}) and 2 (EV:{a[3]}): \n{V.transpose()}\n")
+    print(f"\nDatapoints by PCs, column 1 (EV:{a[0]}) and 2 (EV:{a[1]}): \n{V.transpose()}\n")
     ax=fig.add_subplot(221, title="2d Graph of col 1 and 2")
     ax.scatter(X[0],X[1])
 
