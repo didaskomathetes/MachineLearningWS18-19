@@ -1,16 +1,20 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.datasets import make_swiss_roll
 from sklearn.decomposition import PCA
 
 
 # followed tutorial: https://machinelearningmastery.com/calculate-principal-component-analysis-scratch-python/
 def main():
-    exercise1_2d()
-    exercise2()
+    fig = plt.figure()
+    exercise1(fig)
+    exercise2(fig)
+    plt.show()
 
 
-def exercise1_2d():
+def exercise1(fig):
     X = constructDataMatrix()
+    print("\n-----EXERCISE 1----")
     print(f"Data:\n{X}")
     mean = np.mean(X.transpose(), axis=1)
     print(f"Mean of X:\n{mean}")
@@ -24,22 +28,26 @@ def exercise1_2d():
     P = np.dot(princComps.transpose(), C.transpose())
     print(f"projected subspace:\n{P}")
 
-    fig = plt.figure()
-    ax = fig.add_subplot(221, title="2d Graph of col 1 and 2")
+    ax = fig.add_subplot(321, title="PCA on river flow: 2d Graph of col1 and 2")
     ax.scatter(P[0], P[1])
-    plt.show()
 
 
-def exercise1_3d():
-    pca = PCA(3)
-    X = constructDataMatrix()
-    pca.fit(X.transpose())
+# tutorials used: https://scikit-learn.org/stable/auto_examples/manifold/plot_swissroll.html
+def exercise2(fig):
+    print("\n-----EXERCISE 2----")
+    X, color = make_swiss_roll(800, random_state=1234)
+    ax = fig.add_subplot(323, projection='3d', title="plot of 3d swiss roll")
+    ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral)
+
+    pca = PCA(2)
+    pca.fit(X)
     print(pca.components_)
     print(pca.explained_variance_)
+    P = pca.transform(X)
+    print(f"P (Shape:{P.shape})\n{P}")
 
-
-def exercise2():
-    print("hell")
+    ax = fig.add_subplot(324, title="PCA on swiss roll with d=2")
+    ax.scatter(P[:, 0], P[:, 1])
 
 def constructDataMatrix():
     X = []
