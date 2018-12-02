@@ -36,8 +36,8 @@ def exercise1(fig):
 def exercise2(fig):
     print("\n-----EXERCISE 2----")
     X, color = make_swiss_roll(800, random_state=1234)
-    ax = fig.add_subplot(323, projection='3d', title="plot of 3d swiss roll")
-    ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color)
+    ax = fig.add_subplot(322, projection='3d', title="plot of 3d swiss roll")
+    ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, s=2)
     print(f"swiss roll data shape:{X.shape}\n")
     pca = PCA(2)
     pca.fit(X)
@@ -46,8 +46,8 @@ def exercise2(fig):
     P = pca.transform(X)
     print(f"shape of Projected data:{P.shape}")
 
-    ax = fig.add_subplot(324, title="PCA on swiss roll with d=2")
-    ax.scatter(P[:, 0], P[:, 1], c=color)
+    ax = fig.add_subplot(323, title="PCA on swiss roll with d=2")
+    ax.scatter(P[:, 0], P[:, 1], c=color, s=2)
 
 def constructDataMatrix():
     X = []
