@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_swiss_roll
 from sklearn.decomposition import PCA
-
+import mpl_toolkits.mplot3d.axes3d
 
 # followed tutorial: https://machinelearningmastery.com/calculate-principal-component-analysis-scratch-python/
 def main():
@@ -26,7 +26,7 @@ def exercise1(fig):
     princComps = eigVec[:, [0, 1]]
     print(f"Principal Components:\n{princComps}")
     P = np.dot(princComps.transpose(), C.transpose())
-    print(f"projected subspace:\n{P}")
+    print(f"projected subspace:\n{P.transpose()}")
 
     ax = fig.add_subplot(321, title="PCA on river flow: 2d Graph of col1 and 2")
     ax.scatter(P[0], P[1])
@@ -38,13 +38,13 @@ def exercise2(fig):
     X, color = make_swiss_roll(800, random_state=1234)
     ax = fig.add_subplot(323, projection='3d', title="plot of 3d swiss roll")
     ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral)
-
+    print(f"swiss roll data shape:{X.shape}\n")
     pca = PCA(2)
     pca.fit(X)
-    print(pca.components_)
-    print(pca.explained_variance_)
+    print(f"Principle Components:\n{pca.components_}")
+    print(f"eigenvalues of principal components: { pca.explained_variance_}\n")
     P = pca.transform(X)
-    print(f"P (Shape:{P.shape})\n{P}")
+    print(f"shape of Projected data:{P.shape}")
 
     ax = fig.add_subplot(324, title="PCA on swiss roll with d=2")
     ax.scatter(P[:, 0], P[:, 1])
