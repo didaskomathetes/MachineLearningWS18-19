@@ -1,9 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.decomposition import PCA
 
 
 # followed tutorial: https://machinelearningmastery.com/calculate-principal-component-analysis-scratch-python/
 def main():
+    exercise1_2d()
+    exercise2()
+
+
+def exercise1_2d():
     X = constructDataMatrix()
     print(f"Data:\n{X}")
     mean = np.mean(X.transpose(), axis=1)
@@ -18,19 +24,29 @@ def main():
     P = np.dot(princComps.transpose(), C.transpose())
     print(f"projected subspace:\n{P}")
 
-
     fig = plt.figure()
     ax = fig.add_subplot(221, title="2d Graph of col 1 and 2")
     ax.scatter(P[0], P[1])
     plt.show()
 
 
+def exercise1_3d():
+    pca = PCA(3)
+    X = constructDataMatrix()
+    pca.fit(X.transpose())
+    print(pca.components_)
+    print(pca.explained_variance_)
+
+
+def exercise2():
+    print("hell")
+
 def constructDataMatrix():
-    X=[]
-    X.append([210,209,-116,-249,174,190])
-    X.append([277,89,-105,-189,79,82])
-    X.append([-66,122,-13,-59,95,107])
-    X.append([486,296,-219,-439,253,273])
+    X = []
+    X.append([210, 209, -116, -249, 174, 190])
+    X.append([277, 89, -105, -189, 79, 82])
+    X.append([-66, 122, -13, -59, 95, 107])
+    X.append([486, 296, -219, -439, 253, 273])
     return np.array(X).transpose()
 
 
