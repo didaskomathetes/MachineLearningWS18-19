@@ -1,12 +1,12 @@
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 from data import getIrisDataAnLabels
 
 
 def main():
     X, y = getIrisDataAnLabels("exerciseSet7/data/iris.data")
     X = X.transpose()
-
     # use only petal length and width
     X = np.array([X[:, 2], X[:, 3]]).transpose()
     print("data and shape:")
@@ -14,20 +14,18 @@ def main():
     print(X.shape)
     # number of groups:
     k = 3
-    # array for means
     means = []
-
+    # assign mean randomly from datapoints
     for i in range(0, k):
         mean_i = random.choice(X)
-        print(f"random mean from data: {mean_i}")
         while contains(means, mean_i):
             print(f"random mean from data: {mean_i} already in means")
             mean_i = random.choice(X)
         means.append(mean_i)
+    means = np.array(means)
 
-    print(f"means:{np.array(means)}")
+    print(f"initial random means:\n{means}")
     old_cluster1, old_cluster2, old_cluster3 = [], [], []
-    n_cluster1, n_cluster2, n_cluster3 = calculateClusters(X, means)
     iterations = 0
     while True:
         iterations += 1
@@ -41,7 +39,7 @@ def main():
         old_cluster2 = n_cluster2
         old_cluster3 = n_cluster3
 
-    print(f"clusters and means after fitting in {iterations} iterations:")
+    print(f"clusters converged in {iterations} iterations:")
     print("n_cluster1")
     print(n_cluster1)
     print("n_cluster2")
@@ -50,6 +48,14 @@ def main():
     print(n_cluster3)
     print(f"updated means:\n{means}")
 
+    fig = plt.figure()
+    ax = fig.add_subplot(111, title="Iris data with k-means")
+    plotData(n_cluster1, "red", means[0], ax)
+    plotData(n_cluster2, "blue", means[1], ax)
+    plotData(n_cluster3, "green", means[2], ax)
+    plt.xlabel("Petal length in cm")
+    plt.ylabel("Petal width in cm")
+    plt.show()
 
 def calculateClusters(X, means):
     cluster1 = []
@@ -75,21 +81,22 @@ def calculateClusters(X, means):
     return np.array(cluster1), np.array(cluster2), np.array(cluster3)
 
 
+#calculate the means of each cluster
 def calculateMeans(n_cluster1, n_cluster2, n_cluster3):
     mean_1 = np.mean(n_cluster1, axis=0)
     mean_2 = np.mean(n_cluster2, axis=0)
     mean_3 = np.mean(n_cluster3, axis=0)
-    print(f"mean_1:\n{mean_1}")
-    print(f"mean_2:\n{mean_2}")
-    print(f"mean_3:\n{mean_3}")
     return np.array([mean_1, mean_2, mean_3])
 
+
+def plotData(cluster, color, mean, ax):
+    ax.scatter(cluster[:, 0], cluster[:, 1], c=color, s=5)
+    ax.scatter(mean[0], mean[1], c=color, marker="+")
+
+
 def contains(container, object):
-    # print(f"container:{container}")
     for c_object in container:
-        # print(f"c_object:{c_object}")
         for i in range(len(c_object)):
             if c_object[i] == object[i]:
                 return True
-
     return False
