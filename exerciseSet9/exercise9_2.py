@@ -9,8 +9,7 @@ def main():
     X = X.transpose()
     # use only petal length and width
     X = np.array([X[:, 2], X[:, 3]]).transpose()
-    print("data and shape:")
-    print(X)
+    print("data shape:")
     print(X.shape)
     # number of groups:
     k = 3
@@ -23,6 +22,7 @@ def main():
             mean_i = random.choice(X)
         means.append(mean_i)
     means = np.array(means)
+    fig = plt.figure()
 
     print(f"initial random means:\n{means}")
     old_cluster1, old_cluster2, old_cluster3 = [], [], []
@@ -35,26 +35,21 @@ def main():
             break
 
         means = calculateMeans(n_cluster1, n_cluster2, n_cluster3)
+        if iterations < 10:
+            ax = fig.add_subplot(3, 3, iterations, title=f"Iteration {iterations}")
+            plotData(n_cluster1, "red", means[0], ax)
+            plotData(n_cluster2, "blue", means[1], ax)
+            plotData(n_cluster3, "green", means[2], ax)
+            plt.xlabel("Petal length in cm")
+            plt.ylabel("Petal width in cm")
+
         old_cluster1 = n_cluster1
         old_cluster2 = n_cluster2
         old_cluster3 = n_cluster3
 
-    print(f"clusters converged in {iterations} iterations:")
-    print("n_cluster1")
-    print(n_cluster1)
-    print("n_cluster2")
-    print(n_cluster2)
-    print("n_cluster3")
-    print(n_cluster3)
+    print(f"clusters converged in {iterations-1} iterations:")
     print(f"updated means:\n{means}")
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111, title="Iris data with k-means")
-    plotData(n_cluster1, "red", means[0], ax)
-    plotData(n_cluster2, "blue", means[1], ax)
-    plotData(n_cluster3, "green", means[2], ax)
-    plt.xlabel("Petal length in cm")
-    plt.ylabel("Petal width in cm")
     plt.show()
 
 def calculateClusters(X, means):
@@ -90,8 +85,9 @@ def calculateMeans(n_cluster1, n_cluster2, n_cluster3):
 
 
 def plotData(cluster, color, mean, ax):
-    ax.scatter(cluster[:, 0], cluster[:, 1], c=color, s=5)
-    ax.scatter(mean[0], mean[1], c=color, marker="+")
+    ax.scatter(cluster[:, 0], cluster[:, 1], c=color, s=1, marker=".")
+    # plot cluster center as plus
+    ax.scatter(mean[0], mean[1], c=color, marker="P", s=25)
 
 
 def contains(container, object):
