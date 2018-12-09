@@ -14,6 +14,7 @@ def main():
     # number of groups:
     k = 3
     means = []
+
     # assign mean randomly from datapoints
     for i in range(0, k):
         mean_i = random.choice(X)
@@ -27,14 +28,18 @@ def main():
     print(f"initial random means:\n{means}")
     old_cluster1, old_cluster2, old_cluster3 = [], [], []
     iterations = 0
+
+    # main loop, calculate clusters and means until convergence
     while True:
         iterations += 1
         n_cluster1, n_cluster2, n_cluster3 = calculateClusters(X, means)
+        # iterate until the clusters don't change anymore
         if np.array_equal(n_cluster1, old_cluster1) and np.array_equal(n_cluster2, old_cluster2) and np.array_equal(
                 old_cluster3, n_cluster3):
             break
 
         means = calculateMeans(n_cluster1, n_cluster2, n_cluster3)
+        #plot each iteration up to 9th; exercise 2b)
         if iterations < 10:
             ax = fig.add_subplot(3, 3, iterations, title=f"Iteration {iterations}")
             plotData(n_cluster1, "red", means[0], ax)
@@ -56,7 +61,7 @@ def calculateClusters(X, means):
     cluster1 = []
     cluster2 = []
     cluster3 = []
-    # calculate distances for each point and append point to corresponding cluster
+    # calculate distances between each point cluster mean and append point to corresponding (nearest) cluster
     for i in range(0, X.shape[0]):
         dist1 = np.linalg.norm(X[i] - means[0])
         dist2 = np.linalg.norm(X[i] - means[1])
